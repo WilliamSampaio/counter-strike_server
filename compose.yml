@@ -7,6 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    # image: febley/counter-strike_server
     restart: always
     environment:
       - PORT=27015

@@ -17,14 +17,18 @@ RUN mkdir Steam .steam
 
 # download steamcmd
 WORKDIR /root/Steam
-# RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
-ADD steamcmd_linux.tar.gz .
+RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+# ADD steamcmd_linux.tar.gz .
+
+# RUN apt update && apt install -y iputils-ping
+# ENTRYPOINT [ "ping", "0.0.0.0" ]
 
 # install CS 1.6 via steamcmd
-RUN ./steamcmd.sh +login anonymous +force_install_dir /hlds +app_update 90 validate +quit || true
+RUN ./steamcmd.sh +force_install_dir /hlds +login anonymous +app_update 90 validate +quit || true
 RUN ./steamcmd.sh +login anonymous +app_update 70 validate +quit || true
 RUN ./steamcmd.sh +login anonymous +app_update 10 validate +quit || true
-RUN ./steamcmd.sh +login anonymous +force_install_dir /hlds +app_update 90 validate +quit
+RUN ./steamcmd.sh +force_install_dir /hlds +login anonymous +app_update 90 validate +quit || true
+# RUN ./steamcmd.sh +login anonymous +force_install_dir /hlds +app_update 90 validate +quit
 
 # link sdk
 WORKDIR /root/.steam
