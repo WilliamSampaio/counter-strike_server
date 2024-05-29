@@ -10,7 +10,7 @@ ENV SV_LAN 0
 # install dependencies
 RUN dpkg --add-architecture i386
 RUN apt-get update && \
-  apt-get install -y libc6-i386 lib32gcc-s1 curl
+    apt-get install -y libc6-i386 lib32gcc-s1 curl lib32stdc++6 unzip
 
 # create directories
 WORKDIR /root
@@ -39,6 +39,6 @@ RUN ln -s ../Steam/linux32 sdk32
 WORKDIR /hlds
 
 # copy maps
-COPY maps/ /hlds/cstrike/maps/
+COPY maps/ ./cstrike/maps/
 
-ENTRYPOINT ./hlds_run -game cstrike -strictportbind -ip 0.0.0.0 -port $PORT +sv_lan $SV_LAN +map $MAP -maxplayers $MAXPLAYERS
+ENTRYPOINT ./hlds_run -game $GAME -strictportbind -ip 0.0.0.0 -port $PORT +sv_lan $SV_LAN +map $MAP -maxplayers $MAXPLAYERS
