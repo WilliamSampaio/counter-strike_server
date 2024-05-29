@@ -9,11 +9,8 @@ services:
       dockerfile: Dockerfile
     # image: febley/counter-strike_server
     restart: always
-    environment:
-      - PORT=27015
-      - MAP=de_dust2
-      - MAXPLAYERS=16
-      - SV_LAN=0
+    env_file:
+      - .env
     ports:
       - 27015:27015/udp
       - 27015:27015

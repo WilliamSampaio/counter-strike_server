@@ -1,6 +1,7 @@
 FROM debian:11
 
 # define default env variables
+ENV GAME cstrike
 ENV PORT 27015
 ENV MAP de_dust2
 ENV MAXPLAYERS 16
@@ -36,4 +37,8 @@ RUN ln -s ../Steam/linux32 sdk32
 
 # start server
 WORKDIR /hlds
+
+# copy maps
+COPY maps/ /hlds/cstrike/maps/
+
 ENTRYPOINT ./hlds_run -game cstrike -strictportbind -ip 0.0.0.0 -port $PORT +sv_lan $SV_LAN +map $MAP -maxplayers $MAXPLAYERS
